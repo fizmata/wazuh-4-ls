@@ -1,3 +1,4 @@
+apt update && apt install python3.9-venv
 # Create a virtual environment named "ansible-venv" in the home folder
 python3 -m venv ~/ansible-venv
 
