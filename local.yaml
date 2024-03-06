@@ -2,4 +2,4 @@
 - name: Install wazuh agent
   hosts: pull_mode_hosts
   roles:
-    - wazuh-agent
+    - wazuh_agent
