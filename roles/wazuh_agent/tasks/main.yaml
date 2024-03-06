@@ -1,0 +1,36 @@
+---
+- name: Gather the package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Set WAZUH_MANAGER variable
+  ansible.builtin.lineinfile:
+    path: /etc/environment
+    mode: "0644"
+    line: 'WAZUH_MANAGER="135.181.124.121"'
+    state: present
+    create: true
+  notify: reboot
+  with_items: 
+    - 'WAZUH_MANAGER="{{wazuh_agent_manager_ip}}"'
+    - 'MANAGER_IP="{{wazuh_agent_manager_ip}}"'
+
+- name: Run handlers after package env var is set
+  ansible.builtin.meta: flush_handlers
+
+- name: Include install rpm
+  ansible.builtin.include_tasks: install_rpm.yaml
+  when: "'yum' in ansible_facts.packages"
+
+- name: Include install deb
+  ansible.builtin.include_tasks: install_deb.yaml
+  when: "'apt' in ansible_facts.packages"
+
+- name: Run handlers after package installed
+  ansible.builtin.meta: flush_handlers
+
+- name: Enable wazuh agent service
+  ansible.builtin.service:
+    name: wazuh-agent
+    state: started
+    enabled: true

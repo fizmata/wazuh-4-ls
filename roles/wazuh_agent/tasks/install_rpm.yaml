@@ -1,0 +1,24 @@
+---
+- name: Add wazuh keys
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://packages.wazuh.com/key/GPG-KEY-WAZUH
+
+- name: Add wazuh repo
+  ansible.builtin.copy:
+    dest: /etc/yum.repos.d/wazuh.repo
+    mode: "0644"
+    content: |
+      [wazuh]
+      gpgcheck=1
+      gpgkey=https://packages.wazuh.com/key/GPG-KEY-WAZUH
+      enabled=1
+      name=EL-\$releasever - Wazuh
+      baseurl=https://packages.wazuh.com/4.x/yum/
+      protect=1
+
+- name: Install wazuh-agent
+  ansible.builtin.yum:
+    name: wazuh-agent
+    state: present
+  notify: daemon-reload

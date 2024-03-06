@@ -1,0 +1,15 @@
+- name: Add wazuh keys
+  ansible.builtin.apt_key:
+    state: present
+    url: https://packages.wazuh.com/key/GPG-KEY-WAZUH
+
+- name: Add wazuh repo
+  ansible.builtin.apt_repository:
+    repo: deb https://packages.wazuh.com/4.x/apt/ stable main
+    state: present
+
+- name: Install wazuh-agent
+  ansible.builtin.apt:
+    name: wazuh-agent
+    state: present
+  notify: daemon-reload
