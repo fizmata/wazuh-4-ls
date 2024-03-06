@@ -7,7 +7,7 @@
   ansible.builtin.lineinfile:
     path: /etc/environment
     mode: "0644"
-    line: 'WAZUH_MANAGER="135.181.124.121"'
+    line: "{{ item }}"
     state: present
     create: true
   notify: reboot
