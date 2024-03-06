@@ -20,11 +20,15 @@
 
 - name: Include install rpm
   ansible.builtin.include_tasks: install_rpm.yaml
-  when: "'yum' in ansible_facts.packages"
+  when: ansible_facts['os_family'] == "RedHat"
 
 - name: Include install deb
   ansible.builtin.include_tasks: install_deb.yaml
-  when: "'apt' in ansible_facts.packages"
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: Include install on bsd
+  ansible.builtin.include_tasks: install_bsd.yaml
+  when: ansible_facts['os_family'] == "FreeBSD"
 
 - name: Run handlers after package installed
   ansible.builtin.meta: flush_handlers
