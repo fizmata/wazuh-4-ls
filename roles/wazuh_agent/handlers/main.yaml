@@ -9,3 +9,9 @@
     reboot_timeout: 3600
   listen: reboot
   when: "{{ ansible_hostname != 'localhost' }}"
+
+- name: Restart wazuh-agent
+  ansible.builtin.service:
+    name: wazuh-agent
+    state: restarted
+  listen: restart service

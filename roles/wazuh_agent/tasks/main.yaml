@@ -1,7 +1,7 @@
 ---
-- name: Gather the package facts
-  ansible.builtin.package_facts:
-    manager: auto
+# - name: Gather the package facts
+#   ansible.builtin.package_facts:
+#     manager: auto
 
 - name: Set WAZUH_MANAGER variable
   ansible.builtin.lineinfile:
@@ -14,7 +14,8 @@
   with_items:
     - 'WAZUH_MANAGER="{{ wazuh_agent_manager_ip }}"'
     - 'MANAGER_IP="{{ wazuh_agent_manager_ip }}"'
-
+  when: ansible_facts['os_family'] != "FreeBSD"
+  
 - name: Run handlers after package env var is set
   ansible.builtin.meta: flush_handlers
 
