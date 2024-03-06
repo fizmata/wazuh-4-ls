@@ -11,9 +11,9 @@
     state: present
     create: true
   notify: reboot
-  with_items: 
-    - 'WAZUH_MANAGER="{{wazuh_agent_manager_ip}}"'
-    - 'MANAGER_IP="{{wazuh_agent_manager_ip}}"'
+  with_items:
+    - 'WAZUH_MANAGER="{{ wazuh_agent_manager_ip }}"'
+    - 'MANAGER_IP="{{ wazuh_agent_manager_ip }}"'
 
 - name: Run handlers after package env var is set
   ansible.builtin.meta: flush_handlers

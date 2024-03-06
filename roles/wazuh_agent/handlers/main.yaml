@@ -8,3 +8,4 @@
   ansible.builtin.reboot:
     reboot_timeout: 3600
   listen: reboot
+  when: ansible_hostname not == 'localhost'

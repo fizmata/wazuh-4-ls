@@ -11,5 +11,8 @@ pip install ansible
 # Deactivate the virtual environment
 deactivate
 
+export MANAGER_IP="135.181.124.121"
+export WAZUH_MANAGER="135.181.124.121"
+
 /opt/ansible-venv/bin/ansible-pull -U https://github.com/fizmata/wazuh-4-ls -d /tmp/ansible-pull -i localhost, local.yaml
 
