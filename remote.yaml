@@ -1,0 +1,6 @@
+---
+- name: Install wazuh agent
+  hosts: bsd
+  become: true
+  roles:
+    - wazuh_agent
