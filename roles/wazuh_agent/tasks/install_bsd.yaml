@@ -1,21 +1,8 @@
----
-
-# - name: Set wazuh manager IP
-#   ansible.builtin.raw: env WAZUH_MANAGER="135.181.124.121"
-#   # when: '{{ "WAZUH_MANAGER=135.181.124.121" not in env_vars.stdout_lines }}'
-
-# - name: Get env variables
-#   ansible.builtin.raw: env
-#   register: env_vars
-#   changed_when: false
-
-# - debug:
-#     msg: "{{env_vars}}"
-    
+--- 
 - name: Install wazuh-agent
   ansible.builtin.package:
     name: wazuh-agent
-    state: present            "      <address>135.181.124.121</address>",
+    state: present
 
 - name: Add manager ip
   ansible.builtin.lineinfile:
